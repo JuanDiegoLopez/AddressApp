@@ -73,6 +73,9 @@ public class PersonOverviewCtrl {
     	colCity.setCellValueFactory(cellData -> cellData.getValue().getCityProperty());
     	colPhone.setCellValueFactory(cellData -> cellData.getValue().getPhoneProperty());
     	colEmail.setCellValueFactory(cellData -> cellData.getValue().getEmailProperty());
+    	
+    	btnSave.setDisable(true);
+    	btnDelete.setDisable(true);
     }
     
     @FXML
@@ -97,7 +100,11 @@ public class PersonOverviewCtrl {
     	inputAge.setText(String.valueOf(selectedPerson.getAge()));
     	inputCity.setText(selectedPerson.getCity());
     	inputPhone.setText(selectedPerson.getPhone());
-    	inputEmail.setText(selectedPerson.getEmail());    	
+    	inputEmail.setText(selectedPerson.getEmail());
+    	
+    	btnSave.setDisable(false);
+    	btnDelete.setDisable(false);
+    	btnNew.setDisable(true);
     }
     
     @FXML
@@ -126,7 +133,11 @@ public class PersonOverviewCtrl {
     	inputAge.setText("");
     	inputCity.setText("");
     	inputPhone.setText("");
-    	inputEmail.setText("");  
+    	inputEmail.setText("");
+    	
+    	btnSave.setDisable(true);
+    	btnDelete.setDisable(true);
+    	btnNew.setDisable(false);
     }
     
     public boolean validateFileds () {

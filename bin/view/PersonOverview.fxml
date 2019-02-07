@@ -10,37 +10,37 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="390.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.PersonOverviewCtrl">
+<AnchorPane prefHeight="490.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.PersonOverviewCtrl">
    <children>
-      <SplitPane dividerPositions="0.4" layoutX="53.0" layoutY="107.0" prefHeight="490.0" prefWidth="800.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <SplitPane dividerPositions="0.3564273789649416" layoutX="53.0" layoutY="107.0" prefHeight="490.0" prefWidth="800.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <items>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="410.0" prefWidth="320.0">
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="410.0" prefWidth="320.0" styleClass="background" stylesheets="@../resources/css/style.css">
                <children>
                   <Label layoutX="40.0" layoutY="45.0" text="Name:" />
-                  <Label layoutX="21.0" layoutY="82.0" text="Lastname:" />
-                  <Label layoutX="46.0" layoutY="123.0" text="Age:" />
-                  <Label layoutX="46.0" layoutY="169.0" text="City:" />
-                  <Label layoutX="30.0" layoutY="214.0" text="Phone:" />
-                  <Label layoutX="33.0" layoutY="273.0" text="Email:" />
-                  <TextField fx:id="inputName" layoutX="98.0" layoutY="41.0" prefHeight="25.0" prefWidth="133.0" />
-                  <TextField fx:id="inputLastname" layoutX="98.0" layoutY="78.0" prefHeight="25.0" prefWidth="133.0" />
-                  <TextField fx:id="inputAge" layoutX="98.0" layoutY="119.0" prefHeight="25.0" prefWidth="74.0" />
-                  <TextField fx:id="inputCity" layoutX="98.0" layoutY="165.0" prefHeight="25.0" prefWidth="133.0" />
-                  <TextField fx:id="inputPhone" layoutX="98.0" layoutY="219.0" prefHeight="25.0" prefWidth="162.0" />
-                  <TextField fx:id="inputEmail" layoutX="98.0" layoutY="261.0" prefHeight="25.0" prefWidth="194.0" />
-                  <ButtonBar buttonMinWidth="60.0" layoutX="13.0" layoutY="321.0" prefHeight="50.0" prefWidth="100.0" AnchorPane.rightAnchor="13.0">
+                  <Label layoutX="14.0" layoutY="101.0" text="Lastname:" />
+                  <Label layoutX="47.0" layoutY="159.0" text="Age:" />
+                  <Label layoutX="43.0" layoutY="217.0" text="City:" />
+                  <Label layoutX="32.0" layoutY="287.0" text="Phone:" />
+                  <Label layoutX="35.0" layoutY="348.0" text="Email:" />
+                  <TextField fx:id="inputName" layoutX="98.0" layoutY="41.0" prefHeight="37.0" prefWidth="181.0" />
+                  <TextField fx:id="inputLastname" layoutX="98.0" layoutY="93.0" prefHeight="37.0" prefWidth="181.0" />
+                  <TextField fx:id="inputAge" layoutX="98.0" layoutY="151.0" prefHeight="25.0" prefWidth="74.0" />
+                  <TextField fx:id="inputCity" layoutX="95.0" layoutY="213.0" prefHeight="25.0" prefWidth="133.0" />
+                  <TextField fx:id="inputPhone" layoutX="92.0" layoutY="279.0" prefHeight="25.0" prefWidth="162.0" />
+                  <TextField fx:id="inputEmail" layoutX="92.0" layoutY="340.0" prefHeight="25.0" prefWidth="194.0" />
+                  <ButtonBar buttonMinWidth="60.0" layoutX="-10.0" layoutY="431.0" prefHeight="50.0" prefWidth="389.0" AnchorPane.leftAnchor="-10.0" AnchorPane.rightAnchor="10.0">
                     <buttons>
+                        <Button fx:id="btnClear" mnemonicParsing="false" onAction="#clearInputs" prefHeight="33.0" prefWidth="95.0" text="Clear">
+                           <padding>
+                              <Insets bottom="5.0" left="1.0" right="1.0" top="5.0" />
+                           </padding>
+                        </Button>
                       <Button fx:id="btnNew" mnemonicParsing="false" onAction="#addNewPerson" text="New">
                            <padding>
                               <Insets bottom="5.0" left="1.0" right="1.0" top="5.0" />
                            </padding>
                         </Button>
-                        <Button fx:id="btnDelete" minWidth="63.0" mnemonicParsing="false" onAction="#deletePerson" prefHeight="27.0" text="Delete">
-                           <padding>
-                              <Insets bottom="5.0" left="1.0" right="1.0" top="5.0" />
-                           </padding>
-                        </Button>
-                        <Button fx:id="btnClear" mnemonicParsing="false" onAction="#clearInputs" text="Clear">
+                        <Button fx:id="btnDelete" minWidth="63.0" mnemonicParsing="false" onAction="#deletePerson" prefHeight="34.0" prefWidth="94.0" text="Delete">
                            <padding>
                               <Insets bottom="5.0" left="1.0" right="1.0" top="5.0" />
                            </padding>
@@ -54,16 +54,16 @@
                   </ButtonBar>
                </children>
             </AnchorPane>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="488.0" prefWidth="764.0">
                <children>
-                  <TableView fx:id="tablePersons" layoutX="8.0" layoutY="44.0" onMouseClicked="#selectPerson" prefHeight="488.0" prefWidth="476.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                  <TableView fx:id="tablePersons" layoutX="8.0" layoutY="44.0" onMouseClicked="#selectPerson" prefHeight="488.0" prefWidth="476.0" stylesheets="@../resources/css/style.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                     <columns>
                       <TableColumn fx:id="colName" prefWidth="75.0" text="Name" />
                       <TableColumn fx:id="colLastname" prefWidth="75.0" text="Lasname" />
-                        <TableColumn fx:id="colAge" prefWidth="47.0" text="Age" />
+                        <TableColumn fx:id="colAge" prefWidth="90.0" resizable="false" text="Age" />
                         <TableColumn fx:id="colCity" prefWidth="33.0" text="City" />
                         <TableColumn fx:id="colPhone" prefWidth="16.0" text="Phone" />
-                        <TableColumn fx:id="colEmail" prefWidth="600.0" text="Email" />
+                        <TableColumn fx:id="colEmail" prefWidth="600.0" resizable="false" text="Email" />
                     </columns>
                      <columnResizePolicy>
                         <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
