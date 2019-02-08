@@ -1,12 +1,17 @@
 package controller;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+
 import application.MainApp;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
-import javafx.scene.input.MouseEvent;
+import model.OracleConnection;
 import model.Person;
 
 public class PersonOverviewCtrl {
@@ -64,6 +69,8 @@ public class PersonOverviewCtrl {
     
     private MainApp mainApp;
     private int selectedIndex;
+    private OracleConnection connection;
+    private ObservableList<Person> personList;
     
     @FXML
     public void initialize() {
@@ -76,19 +83,6 @@ public class PersonOverviewCtrl {
     	
     	btnSave.setDisable(true);
     	btnDelete.setDisable(true);
-    }
-    
-    @FXML
-    void addNewPerson() {
-    	if (validateFileds()) {
-    		Person p = new Person (inputName.getText(),
-								inputLastname.getText(),
-								Integer.parseInt(inputAge.getText()),
-								inputCity.getText(),
-								inputPhone.getText(),
-								inputEmail.getText());
-    		mainApp.addPerson(p);
-    	}
     }
     
     @FXML
@@ -108,21 +102,59 @@ public class PersonOverviewCtrl {
     }
     
     @FXML
+    void addNewPerson() {
+    	if (validateFileds()) {
+    		Person person = new Person (inputName.getText(),
+								inputLastname.getText(),
+								Integer.parseInt(inputAge.getText()),
+								inputCity.getText(),
+								inputPhone.getText(),
+								inputEmail.getText());
+    		try {
+    			this.connection.startConnection();
+    			Statement s = connection.getConnection().createStatement();
+    			s.executeQuery("INSERT INTO users VALUES ("+ (personList.size() + 1) +", '"+ person.getName() +"', '"+ person.getLastname() +"', '"+ person.getCity() +"', '"+ person.getPhone() +"', '"+ person.getEmail() +"', "+ person.getAge() +")");
+    			personList.add(person);
+    			connection.closeConnection();
+    		} catch (SQLException e) {
+    			e.printStackTrace();
+    		}
+    		clearInputs();
+    	}
+    }
+    
+    @FXML
     public void deletePerson () {
-    	mainApp.removePerson(selectedIndex);
-    	clearInputs();
+		try {
+			connection.startConnection();
+			Statement s = connection.getConnection().createStatement();
+			s.executeQuery("DELETE FROM users where id = "+ (selectedIndex + 1));
+			personList.remove(selectedIndex);
+			connection.closeConnection();
+	    	clearInputs();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+    	
     }
     
     @FXML
     public void updatePerson () {
     	if (validateFileds()) {
-    		Person person = mainApp.getPerson(selectedIndex);
-    		person.setName(inputName.getText());
-    		person.setLastname(inputLastname.getText());
-    		person.setAge(Integer.valueOf(inputAge.getText()));
-    		person.setCity(inputCity.getText());
-    		person.setPhone(inputPhone.getText());
-    		person.setEmail(inputEmail.getText());
+			try {
+				connection.startConnection();
+				Statement s = connection.getConnection().createStatement();
+				s.executeQuery("UPDATE users SET name = '" + inputName.getText() + "', lastname = '" + inputLastname.getText() + "', age = '" + inputAge.getText() + "', city = '" + inputCity.getText() + "', phone = '" + inputPhone.getText() + "', email = '" + inputEmail.getText() + "' WHERE id = " + selectedIndex + 1);
+				Person person = personList.get(selectedIndex);
+				person.setName(inputName.getText());
+				person.setLastname(inputLastname.getText());
+				person.setAge(Integer.valueOf(inputAge.getText()));
+				person.setCity(inputCity.getText());
+				person.setPhone(inputPhone.getText());
+				person.setEmail(inputEmail.getText());
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
     	}
     }
     
@@ -151,12 +183,29 @@ public class PersonOverviewCtrl {
     		} else {
     			return true;
     		}
-    	
     }
     
     public void setMainApp (MainApp mainApp) {
     	this.mainApp = mainApp;
-    	tablePersons.setItems(this.mainApp.getPersonList());
+    	personList = mainApp.getPersonList();
+    	
+    	connection = new OracleConnection();
+		connection.startConnection();
+		
+		try {
+			Statement statement = connection.getConnection().createStatement();
+			ResultSet result = statement.executeQuery("SELECT * FROM USERS");
+			
+			while (result.next()) {
+				personList.add(new Person(result.getString(2), result.getString(3), result.getInt(7), result.getString(4), result.getString(5), result.getString(6)));
+			}
+			
+			connection.closeConnection();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		tablePersons.setItems(personList);
     }
     
 

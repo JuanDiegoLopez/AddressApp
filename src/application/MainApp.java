@@ -7,27 +7,24 @@ import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
-import javafx.stage.Stage;
 import model.Person;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
+import javafx.stage.Stage;
 
 
 public class MainApp extends Application {
 	private Stage primaryStage;
 	private BorderPane rootLayout;
-	
 	private ObservableList<Person> personList = FXCollections.observableArrayList();
+	
 	@Override
 	public void start(Stage primaryStage) {
 		this.primaryStage = primaryStage;
 		
 		initRootLayout();
 		showPersonOverview();
-		
-		personList.add(new Person("Juan", "Lopez"));
-		personList.add(new Person("Diego", "Triana"));
 	}
 	
 	public void initRootLayout() {
@@ -49,7 +46,10 @@ public class MainApp extends Application {
 		try {
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(getClass().getResource("/view/PersonOverview.fxml"));
+			
+			
 			AnchorPane personOverview  = loader.load();
+			
 			
 			rootLayout.setCenter(personOverview);
 			
@@ -67,14 +67,6 @@ public class MainApp extends Application {
 	
 	public Person getPerson(int index) {
 		return personList.get(index);
-	}
-	
-	public void addPerson(Person person) {
-		personList.add(person);
-	}
-	
-	public void removePerson (int index) {
-		personList.remove(index);
 	}
 	
 	public static void main(String[] args) {
